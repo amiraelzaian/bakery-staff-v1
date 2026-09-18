@@ -1,23 +1,20 @@
-
-
-
 import { GoogleLogin } from "@react-oauth/google";
-
 import { useForm } from "react-hook-form";
+import { useGoogle, useLogin } from "../hooks/useAuth";
+import { toast } from "sonner";
+import { useState } from "react";
+import { Eye, EyeClosed } from "lucide-react";
 
 export default function LoginForm() {
- 
 
-  
+  const[open,setOpen]=useState(false)
 
-  
+  const { loginWithGoogle,error:googleError } = useGoogle();
+  const { login, isPending, error } = useLogin();
 
   const {
     register,
     handleSubmit,
-    watch,
-    trigger,
-    
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -26,8 +23,9 @@ export default function LoginForm() {
     },
   });
 
-  const email = watch("email");
-
+  const onSubmit = (formData) => {
+    login(formData);
+  };
 
   return (
     <div className="w-full max-w-md">
@@ -42,19 +40,24 @@ export default function LoginForm() {
         </h2>
 
         <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-          Access your saved baskets, recurring deliveries, and artisanal
-          orders.
+         Access your based-role dashboared, Monitor your work, Keep fresh
         </p>
       </div>
 
       {/* Google */}
       <div className="overflow-hidden rounded-xl border border-border bg-card p-1.5 shadow-sm">
         <GoogleLogin
-         
+          onSuccess={(credentialResponse) => {
+            loginWithGoogle(credentialResponse.credential);
+          }}
+          onError={() => toast.error("Google login failed")}
         />
       </div>
-
-     
+       {googleError && (
+          <p className="text-center text-sm text-red-600">
+            {googleError.message}
+          </p>
+        )}
 
       {/* Divider */}
       <div className="my-7 flex items-center gap-4">
@@ -67,13 +70,10 @@ export default function LoginForm() {
         <div className="h-px flex-1 bg-border" />
       </div>
 
-      
-
       <form
-        onSubmit={handleSubmit()}
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-5 flex flex-col gap-3"
         noValidate
-      
       >
         {/* Email */}
         <div>
@@ -115,56 +115,70 @@ export default function LoginForm() {
         </div>
 
         {/* Password */}
-        <div>
-          <div className="mb-2 flex items-center justify-between">
-            <label
-              htmlFor="password"
-              className="text-xs font-semibold text-foreground"
-            >
-              Password
-            </label>
+<div>
+  <div className="mb-2 flex items-center justify-between">
+    <label
+      htmlFor="password"
+      className="text-xs font-semibold text-foreground"
+    >
+      Password
+    </label>
 
-            <button
-              type="button"
-            
-              className="text-xs font-medium text-primary transition-colors hover:text-primary/70 disabled:opacity-50"
-            >
-             Forgot password
-            </button>
-          </div>
+    <button
+      type="button"
+      className="text-xs font-medium text-primary transition-colors hover:text-primary/70 disabled:opacity-50"
+    >
+      Forgot password
+    </button>
+  </div>
 
-          <input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            autoComplete="current-password"
-            {...register("password", {
-              required: "Password is required",
-            })}
-            className={`h-12 w-full rounded-xl border bg-input px-4 text-sm text-foreground
-              placeholder:text-muted-foreground/50
-              transition-all duration-200
-              focus:outline-none focus:ring-2 focus:ring-ring/20
-              ${
-                errors.password
-                  ? "border-red-400"
-                  : "border-border focus:border-ring"
-              }`}
-          />
+  <div className="relative">
+    <input
+      id="password"
+      type={open ? "text" : "password"}
+      placeholder="••••••••"
+      autoComplete="current-password"
+      {...register("password", {
+        required: "Password is required",
+      })}
+      className={`h-12 w-full rounded-xl border bg-input pl-4 pr-11 text-sm text-foreground
+        placeholder:text-muted-foreground/50
+        transition-all duration-200
+        focus:outline-none focus:ring-2 focus:ring-ring/20
+        ${
+          errors.password
+            ? "border-red-400"
+            : "border-border focus:border-ring"
+        }`}
+    />
 
-          {errors.password && (
-            <p className="mt-1.5 text-xs text-red-600">
-              {errors.password.message}
-            </p>
-          )}
+    <button
+      type="button"
+      onClick={() => setOpen(!open)}
+      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+    >
+      {open ? <Eye size={18} /> : <EyeClosed size={18} />}
+    </button>
+  </div>
 
-         
-        </div>
+  {errors.password && (
+    <p className="mt-1.5 text-xs text-red-600">
+      {errors.password.message}
+    </p>
+  )}
+</div>
+
+        {/* Login error */}
+        {error && (
+          <p className="text-center text-sm text-red-600">
+            {error.message}
+          </p>
+        )}
 
         {/* Submit */}
         <button
           type="submit"
-        
+          disabled={isPending}
           className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl
             bg-primary px-5 text-sm font-semibold text-primary-foreground
             shadow-sm transition-all duration-200
@@ -172,21 +186,13 @@ export default function LoginForm() {
             hover:brightness-105
             disabled:pointer-events-none disabled:opacity-60"
         >
-         Sign in 
-
-         
+          {isPending ? "Signing in..." : "Sign in"}
         </button>
       </form>
 
-      {/* Register */}
+     
       <p className="mt-7 text-center text-sm text-muted-foreground">
-        New customer at Golden Crumbs?{" "}
-        <a
-          href="/register"
-          className="font-semibold text-primary transition-colors hover:text-primary/80"
-        >
-          Create an account
-        </a>
+        If you have any question, Ask your manager
       </p>
     </div>
   );
