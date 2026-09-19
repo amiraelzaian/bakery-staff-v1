@@ -1,27 +1,29 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuthStore } from "@/store/authStore";
+import { Navigate, Outlet } from "react-router";
+import { useAuthStore } from "../stores/authStore";
+import { HOME_BY_ROLE } from "./roles";
 
-type Role = "ADMIN" | "BAKER" | "DELIVERY";
 
-type ProtectedRouteProps = {
-  allowedRoles: Role[];
-};
 
-export default function ProtectedRoute({
-  allowedRoles,
-}: ProtectedRouteProps) {
-  const { user } = useAuthStore();
 
-  // User is not logged in
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+export default function ProtectedRoute({allowedRoles}){
 
-  // User is logged in but doesn't have permission
-  if (!allowedRoles.includes(user.role)) {
-    return <Navigate to="/unauthorized" replace />;
-  }
+  const token=useAuthStore((s)=>s.token)
+  const user=useAuthStore((s)=>s.user)
 
-  // User is logged in and has the correct role
-  return <Outlet />;
+// 1- not logged in --> login page
+
+if(!token||!user) return <Navigate to="/" replace/>
+
+//2- logged in but wrong role --> send him to his home
+
+if(!allowedRoles.includes(user.role)){
+  return <Navigate to={HOME_BY_ROLE[user.role] ?? "/"} replace/>
+}
+
+//3- allowed --> render the child routes
+
+return <Outlet/>
+
+
+
 }

@@ -1,13 +1,12 @@
+import { useAuthStore } from "../stores/authStore"
+
 const API_URL = import.meta.env.VITE_PUBLIC_API_URL || "http://localhost:4000/api/v1"
 
 console.log("API URL:", API_URL)
 
 
 export async function apiClient(endpoint, options = {}) {
-  const token =
-    typeof window !== "undefined"
-      ? localStorage.getItem("token")
-      : null
+  const {token,logout}=useAuthStore.getState();
 
   const res = await fetch(`${API_URL}${endpoint}`, {
     ...options,
@@ -20,9 +19,12 @@ export async function apiClient(endpoint, options = {}) {
     },
   })
 
-  if (res.status === 204) {
-    return null
-  }
+  // expired token/ invalid
+
+  if(res.status===401&&token) logout();
+
+  if (res.status === 204) return null
+  
 
   const data = await res.json().catch(() => null)
 

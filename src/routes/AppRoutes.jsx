@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 
 import LoginPage from "../pages/Login/LoginPage";
 
@@ -21,6 +21,8 @@ import BakerOrders from "../pages/Baker/Orders";
 import Deliveries from "../pages/Delivery/Deliveries";
 import NotFound from "../pages/NotFound";
 
+import ProtectedRoute from "./ProtectedRoute";
+
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -29,25 +31,34 @@ export default function AppRoutes() {
         <Route path="/" element={<LoginPage />} />
 
         {/* Admin */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="categories" element={<Categories />} />
-          <Route path="employees" element={<Employees />} />
-          <Route path="audit-logs" element={<Logs />} />
-          <Route path="orders" element={<AdminOrders />} />
-          <Route path="products" element={<Products />} />
+        <Route element={<ProtectedRoute allowedRoles={['admin']}/>}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="employees" element={<Employees />} />
+            <Route path="audit-logs" element={<Logs />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="products" element={<Products />} />
+          </Route>
         </Route>
 
         {/* Baker */}
-        <Route path="/baker" element={<BakerLayout />}>
-          <Route path="dashboard" element={<BakerDashboard />} />
-          <Route path="orders" element={<BakerOrders />} />
+        <Route element={<ProtectedRoute allowedRoles={['baker']}/>}>
+          <Route path="/baker" element={<BakerLayout />}>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<BakerDashboard />} />
+            <Route path="orders" element={<BakerOrders />} />
+          </Route>
         </Route>
 
         {/* Delivery */}
-        <Route path="/delivery" element={<DeliveryLayout />}>
-          <Route path="dashboard" element={<DeliveryDashboard />} />
-          <Route path="deliveries" element={<Deliveries />} />
+        <Route element={<ProtectedRoute allowedRoles={['delivery']}/>}>
+          <Route path="/delivery" element={<DeliveryLayout />}>
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<DeliveryDashboard />} />
+            <Route path="deliveries" element={<Deliveries />} />
+          </Route>
         </Route>
 
          <Route path="*" element={<NotFound />} />

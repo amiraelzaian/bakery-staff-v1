@@ -32,13 +32,13 @@ export default function BrandPanel() {
             Member privileges
           </p>
 
-          <h1 className="font-serif text-5xl leading-[1.1] text-foreground drop-shadow-sm xl:text-6xl">
+          <h1 className="font-serif text-5xl leading-[1.1] text-white/90 drop-shadow-sm xl:text-6xl">
             Slow fermentation,
             <br />
             <span className="italic text-secondary">morning ritual.</span>
           </h1>
 
-          <p className="max-w-md text-sm leading-7 text-foreground/90">
+          <p className="max-w-md text-sm leading-7 text-white/90">
             Join the Golden Crumbs baker&apos;s circle to reserve morning
             bake batches, save your preferences, and follow your artisanal
             deliveries from our oven to your door.
@@ -51,8 +51,8 @@ export default function BrandPanel() {
                 <span className="text-secondary">☀</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Daily 4:30 AM bake</p>
-                <p className="mt-1 text-xs leading-5 text-foreground/70">
+                <p className="text-sm font-medium text-white/90">Daily 4:30 AM bake</p>
+                <p className="mt-1 text-xs leading-5 text-white/70">
                   Reserve fresh from the oven
                 </p>
               </div>
@@ -63,8 +63,8 @@ export default function BrandPanel() {
                 <span className="text-secondary">🥨</span>
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">VIP tasting previews</p>
-                <p className="mt-1 text-xs leading-5 text-foreground/70">
+                <p className="text-sm font-medium text-white">VIP tasting previews</p>
+                <p className="mt-1 text-xs leading-5 text-white/70">
                   Seasonal menu access
                 </p>
               </div>
@@ -73,12 +73,12 @@ export default function BrandPanel() {
         </div>
 
         {/* Testimonial */}
-        <div className="max-w-lg border-t border-foreground/20 pt-6">
-          <p className="font-serif text-lg italic leading-7 text-foreground/95">
+        <div className="max-w-lg border-t border-white/20 pt-6">
+          <p className="font-serif text-lg italic leading-7 text-white/95">
             &ldquo;The sourdough morning delivery changed our breakfast
             routine completely.&rdquo;
           </p>
-          <p className="mt-3 text-xs text-foreground/60">
+          <p className="mt-3 text-xs text-white/60">
             — Camille Laurent, Bakery Club Member
           </p>
         </div>
