@@ -5,7 +5,7 @@ import { useTheme } from "../context/ThemeProvider";
 
 export default function ThemeToggle() {
   const {resolvedTheme,setTheme}=useTheme();
- console.log(resolvedTheme,setTheme)
+
 
 
 
