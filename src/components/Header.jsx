@@ -19,12 +19,11 @@ export default function Header({ links = [] }) {
     queryClient.clear();
   };
 
-  // close the menu on every route change (also covers the Back button)
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // close the menu with the Escape key
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && setOpen(false);
@@ -33,8 +32,8 @@ export default function Header({ links = [] }) {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-border bg-card px-4">
-      <Logo />
+    <header className={`sticky top-0 z-30 flex h-16 items-center  gap-3 border-b border-border bg-card px-4`}>
+      <Logo  />
 
       {/* Desktop nav */}
       <nav className="hidden gap-1 md:flex" aria-label="Main">
@@ -55,7 +54,7 @@ export default function Header({ links = [] }) {
         ))}
       </nav>
 
-      <div className="flex items-center gap-2">
+      <div className={`flex items-center ${isAdmin?"ml-auto":""}  gap-2`}>
       
          <button
             type="button"
