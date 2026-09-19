@@ -1,23 +1,20 @@
+import { Link } from "react-router";
 
-
-
-
-export default function Logo() { 
-
+export default function Logo() {
   return (
-    <section className="flex justify-center items-center gap-2">
-    <a href="/">
+   
+    <Link to="/" className="flex shrink-0 items-center gap-2">
       <img
         src="/images/logo.png"
-        alt="CREME & CRUMB logo"
+        alt="Golden Crumbs logo"
         width={45}
         height={45}
-        className="object-fill"
+        className="shrink-0 object-fill"
       />
-    </a>
 
-      <h1 className={`text-primary font-bold text-2xl md:text-4xl font-lovers-quarrel`}>Golden Crumbs</h1>
-    
-    </section>
+      <span className="whitespace-nowrap font-lovers-quarrel text-2xl font-bold text-primary md:text-4xl">
+        Golden Crumbs
+      </span>
+    </Link>
   );
 }

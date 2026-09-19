@@ -15,12 +15,16 @@ import Employees from "../pages/Admin/Employees";
 import Logs from "../pages/Admin/Logs";
 import AdminOrders from "../pages/Admin/Orders";
 import Products from "../pages/Admin/Products";
+import Coupons from "../pages/Admin/Coupons";
+import Analytics from "../pages/Admin/Analytics";
+import Offers from "../pages/Admin/Offers"; // 
 
 import BakerOrders from "../pages/Baker/Orders";
 
 import Deliveries from "../pages/Delivery/Deliveries";
-import NotFound from "../pages/NotFound";
 
+
+import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRoutes() {
@@ -31,20 +35,23 @@ export default function AppRoutes() {
         <Route path="/" element={<LoginPage />} />
 
         {/* Admin */}
-        <Route element={<ProtectedRoute allowedRoles={['admin']}/>}>
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="categories" element={<Categories />} />
-            <Route path="employees" element={<Employees />} />
-            <Route path="audit-logs" element={<Logs />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="products" element={<Products />} />
+            <Route path="categories" element={<Categories />} />
+            <Route path="employees" element={<Employees />} />
+            <Route path="coupons" element={<Coupons />} />
+            <Route path="seasonal-offers" element={<Offers />} /> {/* NEW */}
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="audit-logs" element={<Logs />} />
           </Route>
         </Route>
 
         {/* Baker */}
-        <Route element={<ProtectedRoute allowedRoles={['baker']}/>}>
+        <Route element={<ProtectedRoute allowedRoles={["baker"]} />}>
           <Route path="/baker" element={<BakerLayout />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<BakerDashboard />} />
@@ -53,17 +60,16 @@ export default function AppRoutes() {
         </Route>
 
         {/* Delivery */}
-        <Route element={<ProtectedRoute allowedRoles={['delivery']}/>}>
+        <Route element={<ProtectedRoute allowedRoles={["delivery"]} />}>
           <Route path="/delivery" element={<DeliveryLayout />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<DeliveryDashboard />} />
             <Route path="deliveries" element={<Deliveries />} />
-          </Route>
+=          </Route>
         </Route>
 
-         <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-
     </BrowserRouter>
   );
 }

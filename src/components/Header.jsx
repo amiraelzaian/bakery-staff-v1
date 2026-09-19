@@ -6,24 +6,24 @@ import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { useAuthStore } from "../stores/authStore";
 
-export default function Header({ links = [] }) {
+export default function Header({ links = [],expanded=false }) {
   const [open, setOpen] = useState(false);
   const logout = useAuthStore((s) => s.logout);
-  const isAdmin = useAuthStore((s) => s.user?.role === "admin");
   const queryClient = useQueryClient();
   const { pathname } = useLocation();
   const hasLinks = links.length > 0;
 
   const handleLogout = () => {
     logout();
-    queryClient.clear();
+    queryClient.clear(); // don't leak the previous user's cached data
   };
 
+  // close the mobile menu on every route change
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-
+  // close the mobile menu with Escape
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && setOpen(false);
@@ -32,8 +32,8 @@ export default function Header({ links = [] }) {
   }, [open]);
 
   return (
-    <header className={`sticky top-0 z-30 flex h-16 items-center  gap-3 border-b border-border bg-card px-4`}>
-      <Logo  />
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-card px-4">
+     {!expanded&& <Logo />}
 
       {/* Desktop nav */}
       <nav className="hidden gap-1 md:flex" aria-label="Main">
@@ -54,19 +54,21 @@ export default function Header({ links = [] }) {
         ))}
       </nav>
 
-      <div className={`flex items-center ${isAdmin?"ml-auto":""}  gap-2`}>
-      
-         <button
-            type="button"
-            onClick={handleLogout}
-            aria-label="Logout"
-            className={`items-center gap-2 rounded-md p-2 text-sm font-medium text-red-600 transition-colors hover:text-red-500 dark:text-red-400 ${
-              isAdmin ? "flex" : "hidden md:flex"
-            }`}
-          >
-            <LogOut size={18} />
-            <span className="hidden md:inline">Logout</span>
-          </button>
+      {/* Right group: always pushed to the right edge */}
+      <div className="ml-auto flex items-center gap-2">
+        {/* With links, phones log out from the hamburger menu.
+            Without links (admin), there is no menu, so always show it. */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          aria-label="Logout"
+          className={`items-center gap-2 rounded-md p-2 text-sm font-medium text-red-600 transition-colors hover:text-red-500 dark:text-red-400 ${
+            hasLinks ? "hidden md:flex" : "flex"
+          }`}
+        >
+          <LogOut size={18} />
+          <span className="hidden md:inline">Logout</span>
+        </button>
 
         <ThemeToggle />
 

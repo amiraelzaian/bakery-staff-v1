@@ -1,16 +1,19 @@
+
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import Logo from "./Logo";
 
-export default function SideBar({links = [] }) {
-   const [expanded, setExpanded] = useState(false);
+export default function SideBar({expanded,setExpanded, links = [] }) {
+ 
   const { pathname } = useLocation();
 
+  // close after navigating (also covers Back/Forward)
   useEffect(() => {
     setExpanded(false);
   }, [pathname]);
 
+  // close with Escape
   useEffect(() => {
     if (!expanded) return;
     const onKey = (e) => e.key === "Escape" && setExpanded(false);
@@ -19,8 +22,10 @@ export default function SideBar({links = [] }) {
   }, [expanded]);
 
   return (
-    <div className="w-0 shrink-0 md:w-16">
-      {/* overlay */}
+    // Fixed 64px slot: the only space the layout ever sees,
+    // so the page content never moves when the drawer opens.
+    <div className="w-16 shrink-0">
+      {/* Overlay */}
       <div
         onClick={() => setExpanded(false)}
         aria-hidden="true"
@@ -29,31 +34,21 @@ export default function SideBar({links = [] }) {
         }`}
       />
 
-      {/* phones only: floating open button */}
-      {!expanded && (
-        <button
-          type="button"
-          onClick={() => setExpanded(true)}
-          aria-label="Open sidebar"
-          className="fixed left-3 top-3 z-40 cursor-pointer rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground md:hidden"
-        >
-          <PanelLeftOpen size={22} />
-        </button>
-      )}
-
+      {/* Fixed sidebar: grows OVER the content */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex flex-col overflow-hidden border-border bg-card transition-[width,visibility] duration-200 ${
-          expanded
-            ? "visible w-64 border-r shadow-xl"
-            : "  visible w-16 border-r"
+        className={`fixed inset-y-0 left-0 z-50 flex flex-col overflow-hidden border-r border-border bg-card transition-[width] duration-200 ${
+          expanded ? "w-64 shadow-xl" : "w-16"
         }`}
       >
+        {/* Top: logo + toggle */}
         <div
           className={`flex h-16 shrink-0 items-center border-b border-border px-3 ${
             expanded ? "justify-between" : "justify-center"
           }`}
         >
-          {expanded && <Logo />}
+          {expanded &&  <span className="whitespace-nowrap font-lovers-quarrel text-2xl font-bold text-primary md:text-4xl">
+        Golden Crumbs
+      </span>}
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
@@ -65,6 +60,7 @@ export default function SideBar({links = [] }) {
           </button>
         </div>
 
+        {/* Links */}
         <nav
           aria-label="Admin"
           className="flex-1 space-y-1 overflow-y-auto overflow-x-hidden px-2 py-4"
