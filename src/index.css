@@ -2,10 +2,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-*{
-  /* padding:0; */
-  margin:0;
-  box-sizing:border-box;
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 :root {
@@ -88,6 +88,8 @@
 
   --color-brand-panel: var(--brand-panel);
   --color-brand-panel-deep: var(--brand-panel-deep);
+
+  --font-lovers-quarrel: "Lovers Quarrel", cursive;
 
 }
 

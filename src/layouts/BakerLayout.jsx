@@ -1,7 +1,20 @@
+import { Outlet } from "react-router";
+import Header from "../components/Header";
+
+const NAV_LINKS = [
+  { label: "My Orders", to: "/baker/orders" },
+  { label: "Dashboard", to: "/baker/dashboard" },
+];
 
 
-export default function BakerLayout(){
+export default function BakeryLayout(){
 
 
-    return <div className="">baker</div>
+    return <main className="">
+        <Header links={NAV_LINKS}/>
+         <main className="mx-auto max-w-5xl p-4 pb-24 md:pb-6">
+        <Outlet/>
+      </main>
+
+    </main>
 }
