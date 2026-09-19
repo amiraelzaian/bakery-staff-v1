@@ -1,5 +1,6 @@
 import { Outlet } from "react-router";
 import Header from "../components/Header";
+import { useBakerOrders } from "../hooks/useBaker";
 
 const NAV_LINKS = [
   { label: "My Orders", to: "/baker/orders" },
@@ -9,6 +10,9 @@ const NAV_LINKS = [
 
 export default function BakeryLayout(){
 
+
+  const {orders}=useBakerOrders()
+  console.log(orders)
 
     return <main className="">
         <Header links={NAV_LINKS}/>

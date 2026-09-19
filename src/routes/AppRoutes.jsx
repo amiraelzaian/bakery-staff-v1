@@ -26,6 +26,7 @@ import Deliveries from "../pages/Delivery/Deliveries";
 
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
+import OrderDetails from "../pages/Baker/OrderDetails";
 
 export default function AppRoutes() {
   return (
@@ -56,6 +57,7 @@ export default function AppRoutes() {
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<BakerDashboard />} />
             <Route path="orders" element={<BakerOrders />} />
+            <Route path="orders/:id" element={<OrderDetails />} />
           </Route>
         </Route>
 
