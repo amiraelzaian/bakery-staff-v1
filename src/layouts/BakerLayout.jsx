@@ -16,7 +16,7 @@ export default function BakeryLayout(){
 
     return <main className="">
         <Header links={NAV_LINKS}/>
-         <main className="mx-auto max-w-5xl p-4 pb-24 md:pb-6">
+         <main className="mx-auto max-w-7xl p-4 pb-24 md:pb-6">
         <Outlet/>
       </main>
 

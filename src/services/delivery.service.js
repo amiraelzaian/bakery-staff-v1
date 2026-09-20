@@ -2,9 +2,9 @@
 import { apiClient } from "./client"
 
 
-export async function getDeliveries(deliveryId){
+export async function getDeliveries(){
     const data=await apiClient('/orders/my-deliveries',{
-        body:JSON.stringify({deliveryId}),
+
     });
     return data
 }

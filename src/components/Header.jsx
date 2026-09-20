@@ -6,9 +6,10 @@ import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { useAuthStore } from "../stores/authStore";
 
-export default function Header({ links = [],expanded=false }) {
+export default function Header({ links = [], expanded = false }) {
   const [open, setOpen] = useState(false);
   const logout = useAuthStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
   const queryClient = useQueryClient();
   const { pathname } = useLocation();
   const hasLinks = links.length > 0;
@@ -32,8 +33,8 @@ export default function Header({ links = [],expanded=false }) {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-card px-4">
-     {!expanded&& <Logo />}
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-card px-4">
+      {!expanded && <Logo />}
 
       {/* Desktop nav */}
       <nav className="hidden gap-1 md:flex" aria-label="Main">
@@ -54,10 +55,8 @@ export default function Header({ links = [],expanded=false }) {
         ))}
       </nav>
 
-      {/* Right group: always pushed to the right edge */}
-      <div className="ml-auto flex items-center gap-2">
-        {/* With links, phones log out from the hamburger menu.
-            Without links (admin), there is no menu, so always show it. */}
+      {/* Right group */}
+      <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={handleLogout}
