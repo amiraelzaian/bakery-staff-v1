@@ -9,14 +9,13 @@ import { useAuthStore } from "../stores/authStore";
 export default function Header({ links = [], expanded = false }) {
   const [open, setOpen] = useState(false);
   const logout = useAuthStore((s) => s.logout);
-  const user = useAuthStore((s) => s.user);
   const queryClient = useQueryClient();
   const { pathname } = useLocation();
   const hasLinks = links.length > 0;
 
   const handleLogout = () => {
     logout();
-    queryClient.clear(); // don't leak the previous user's cached data
+    queryClient.clear(); 
   };
 
   // close the mobile menu on every route change
