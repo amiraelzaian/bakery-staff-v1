@@ -4,14 +4,15 @@ const API_URL = import.meta.env.VITE_PUBLIC_API_URL || "http://localhost:4000/ap
 
 console.log("API URL:", API_URL)
 
-
 export async function apiClient(endpoint, options = {}) {
-  const {token,logout}=useAuthStore.getState();
+  const { token, logout } = useAuthStore.getState();
+
+  const isFormData = options.body instanceof FormData;
 
   const res = await fetch(`${API_URL}${endpoint}`, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
+      ...(!isFormData && { "Content-Type": "application/json" }),
       ...(token && {
         Authorization: `Bearer ${token}`,
       }),
@@ -19,12 +20,9 @@ export async function apiClient(endpoint, options = {}) {
     },
   })
 
-  // expired token/ invalid
-
-  if(res.status===401&&token) logout();
+  if (res.status === 401 && token) logout();
 
   if (res.status === 204) return null
-  
 
   const data = await res.json().catch(() => null)
 
