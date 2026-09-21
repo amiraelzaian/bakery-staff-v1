@@ -2,8 +2,10 @@ import { Pencil, Trash2 } from "lucide-react";
 import ProductImage from "./ProductImage";
 import StatusBadge from "../common/StatusBadge";
 import { getDisplayPrice } from "./priceHelper";
+import { useNavigate } from "react-router";
 
 export default function ProductsTable({ products, onEdit, onDelete, deletingId }) {
+  const navigate=useNavigate()
   if (products.length === 0) {
     return <p className="py-10 text-center text-muted-foreground">No products found.</p>;
   }
@@ -36,6 +38,8 @@ export default function ProductsTable({ products, onEdit, onDelete, deletingId }
               <span className="text-xs text-muted-foreground">
                 Sold {product.soldQuantity ?? 0}
               </span>
+               <button className="text-xs cursor-pointer text-secondary" onClick={()=>navigate(`/admin/products/${product._id}`)}>View details</button>
+
               <div className="flex gap-1">
                 <button
                   onClick={() => onEdit(product)}
@@ -82,6 +86,7 @@ export default function ProductsTable({ products, onEdit, onDelete, deletingId }
                       <p className="line-clamp-1 text-xs text-muted-foreground">
                         {product.description}
                       </p>
+                      <button className="text-xs cursor-pointer text-secondary" onClick={()=>navigate(`/admin/products/${product._id}`)}>View details</button>
                     </div>
                   </div>
                 </td>

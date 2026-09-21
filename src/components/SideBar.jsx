@@ -1,8 +1,7 @@
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
-import Logo from "./Logo";
 
 export default function SideBar({expanded,setExpanded, links = [] }) {
  
@@ -11,7 +10,7 @@ export default function SideBar({expanded,setExpanded, links = [] }) {
   // close after navigating (also covers Back/Forward)
   useEffect(() => {
     setExpanded(false);
-  }, [pathname]);
+  }, [pathname,setExpanded]);
 
   // close with Escape
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function SideBar({expanded,setExpanded, links = [] }) {
     const onKey = (e) => e.key === "Escape" && setExpanded(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [expanded]);
+  }, [expanded,setExpanded]);
 
   return (
     // Fixed 64px slot: the only space the layout ever sees,

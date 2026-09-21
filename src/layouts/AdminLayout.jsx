@@ -14,13 +14,12 @@ import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import { useState } from "react";
 
-// every `to` must match a <Route path> in AppRoutes exactly
 const ADMIN_NAV = [
   { label: "Dashboard", to: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Orders", to: "/admin/orders", icon: ShoppingCart },
   { label: "Products", to: "/admin/products", icon: Package },
   { label: "Categories", to: "/admin/categories", icon: Tags },
-  { label: "Employees", to: "/admin/employees", icon: UserCog },
+  { label: "Users", to: "/admin/users", icon: UserCog },
   { label: "Coupons", to: "/admin/coupons", icon: TicketPercent },
   { label: "Offers", to: "/admin/seasonal-offers", icon: HandCoins },
   { label: "Analytics", to: "/admin/analytics", icon: BarChart3 },

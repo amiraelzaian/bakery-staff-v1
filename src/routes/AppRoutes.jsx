@@ -11,7 +11,6 @@ import BakerDashboard from "../pages/Baker/Dashboard";
 import DeliveryDashboard from "../pages/Delivery/Dashboard";
 
 import Categories from "../pages/Admin/Categories";
-import Employees from "../pages/Admin/Employees";
 import Logs from "../pages/Admin/Logs";
 import AdminOrders from "../pages/Admin/Orders";
 import Products from "../pages/Admin/Products";
@@ -28,6 +27,9 @@ import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import OrderDetails from "../pages/Baker/OrderDetails";
 import DeliveryDetails from "../pages/Delivery/DeliveryDetails";
+import ProductDetails from "../pages/Admin/ProductDetails";
+import Users from "../pages/Admin/Users";
+import UserDetails from "../pages/Admin/UserDetails";
 
 export default function AppRoutes() {
   return (
@@ -43,8 +45,10 @@ export default function AppRoutes() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="products" element={<Products />} />
+            <Route path="products/:productId" element={<ProductDetails />} />
             <Route path="categories" element={<Categories />} />
-            <Route path="employees" element={<Employees />} />
+            <Route path="users" element={<Users />} />
+            <Route path="users/:userId" element={<UserDetails />} />
             <Route path="coupons" element={<Coupons />} />
             <Route path="seasonal-offers" element={<Offers />} /> {/* NEW */}
             <Route path="analytics" element={<Analytics />} />
