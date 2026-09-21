@@ -33,6 +33,7 @@ import Users from "../pages/Admin/Users";
 import UserDetails from "../pages/Admin/UserDetails";
 import FailedOrders from "../pages/Admin/FailedOrders";
 import RefundedOrders from "../pages/Admin/RefundedOrders";
+import OrdersLayout from "../pages/Admin/OrdersLayout";
 
 export default function AppRoutes() {
   return (
@@ -44,11 +45,13 @@ export default function AppRoutes() {
         {/* Admin */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin" element={<AdminLayout />}>
+            <Route element={<OrdersLayout />}>
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="orders/failed" element={<FailedOrders />} />
+              <Route path="orders/refunded" element={<RefundedOrders />} />
+           </Route>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="orders" element={<AdminOrders />} />
-            <Route path="orders/failed" element={<FailedOrders />} />
-            <Route path="orders/refunded" element={<RefundedOrders />} />
             <Route path="orders/:orderId" element={<AdminOrderDetails />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:productId" element={<ProductDetails />} />
@@ -79,7 +82,7 @@ export default function AppRoutes() {
             <Route path="dashboard" element={<DeliveryDashboard />} />
             <Route path="deliveries" element={<Deliveries />} />
             <Route path="deliveries/:orderId" element={<DeliveryDetails/>} />
-=          </Route>
+         </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
