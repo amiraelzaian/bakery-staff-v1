@@ -53,3 +53,22 @@ export async function getProductsForAdmin({ page = 1, search = "", categoryId = 
   const data = await apiClient(`/products/admin?${params.toString()}`);
   return data;
 }
+
+
+// I want to get reviews by product (productId in this case)
+export async function getReviewsForProductForAdmin({ page = 1, search = "", product = "" } = {}) {
+  const params = new URLSearchParams({ page });
+  if (search) params.set("keyword", search);
+  if (product) params.set("product", product);
+
+  const data = await apiClient(`/reviews/admin?${params.toString()}`);
+  return data;
+}
+
+export async function deleteReviewForAdmin(reviewId){
+  const data=await apiClient(`/reviews/${reviewId}/admin`,{
+    method:"DELETE",
+  })
+  return data;
+
+}

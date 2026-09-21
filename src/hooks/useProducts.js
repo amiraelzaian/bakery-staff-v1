@@ -6,6 +6,8 @@ import {
   deleteProduct,
   getProduct,
   getProductsForAdmin,
+  getReviewsForProductForAdmin,
+  deleteReviewForAdmin,
 } from "../services/products.service";
 
 
@@ -96,4 +98,44 @@ export function useDeleteProduct() {
     isPending: mutation.isPending,
     error: mutation.error,
   };
+}
+
+
+export function useProductReviews({ page = 1, search = "", product = "" } = {}){
+   const query = useQuery({
+    queryKey: ["reviews", "admin", page, search, product],
+    queryFn: () => getReviewsForProductForAdmin({ page, search, product }),
+    staleTime: 5 * 60 * 1000,
+    placeholderData: (prev) => prev, 
+  });
+
+  return {
+    reviews: query.data?.data ?? [],
+    pageInfo: query.data?.page ?? { currentPage: 1, limit: 20, NoOfPages: 1 },
+    results: query.data?.results ?? 0,
+    isPending: query.isPending,
+    isFetching: query.isFetching,
+    error: query.error,
+  };
+
+}
+
+export function useDeleteReview(){
+   const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (reviewId) => deleteReviewForAdmin(reviewId),
+    onSuccess: () => {
+      toast.success("Review deleted");
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  return {
+    mutate: mutation.mutate,
+    isPending: mutation.isPending,
+    error: mutation.error,
+  };
+
 }

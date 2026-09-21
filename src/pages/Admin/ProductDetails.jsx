@@ -7,6 +7,7 @@ import StatusBadge from "../../components/common/StatusBadge";
 import { getDisplayPrice } from "../../components/products/priceHelper";
 import ProductFormModal from "../../components/products/ProductFormModal";
 import ConfirmDeleteModal from "../../components/common/ConfirmDeleteModal";
+import ProductReviewsSection from "../../components/products/ProductReviewsSection";
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -123,6 +124,8 @@ export default function ProductDetails() {
           </div>
         </div>
       )}
+
+      <ProductReviewsSection productId={product._id} />
 
       <ProductFormModal open={editOpen} onClose={() => setEditOpen(false)} product={product} />
 

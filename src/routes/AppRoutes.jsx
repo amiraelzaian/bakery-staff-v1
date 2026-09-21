@@ -26,10 +26,13 @@ import Deliveries from "../pages/Delivery/Deliveries";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import OrderDetails from "../pages/Baker/OrderDetails";
+import AdminOrderDetails from "../pages/Admin/OrderDetails";
 import DeliveryDetails from "../pages/Delivery/DeliveryDetails";
 import ProductDetails from "../pages/Admin/ProductDetails";
 import Users from "../pages/Admin/Users";
 import UserDetails from "../pages/Admin/UserDetails";
+import FailedOrders from "../pages/Admin/FailedOrders";
+import RefundedOrders from "../pages/Admin/RefundedOrders";
 
 export default function AppRoutes() {
   return (
@@ -44,6 +47,9 @@ export default function AppRoutes() {
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="orders" element={<AdminOrders />} />
+            <Route path="orders/failed" element={<FailedOrders />} />
+            <Route path="orders/refunded" element={<RefundedOrders />} />
+            <Route path="orders/:orderId" element={<AdminOrderDetails />} />
             <Route path="products" element={<Products />} />
             <Route path="products/:productId" element={<ProductDetails />} />
             <Route path="categories" element={<Categories />} />
