@@ -7,6 +7,8 @@ import {
   getUser,
   getAllUsers,
 } from "../services/users.service";
+import { getUsersByRole } from "../services/users.service";
+
 
 export function useUsers({ page = 1, search = "", role = "" } = {}) {
   const query = useQuery({
@@ -76,4 +78,19 @@ export function useDeleteUser() {
     onError: (err) => toast.error(err.message),
   });
   return { mutate: mutation.mutate, isPending: mutation.isPending, error: mutation.error };
+}
+
+
+export function useUsersByRole(role) {
+  const query = useQuery({
+    queryKey: ["users", "role", role], 
+    queryFn: () => getUsersByRole(role),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  return {
+    users: query.data?.data ?? [],
+    isPending: query.isPending,
+    error: query.error,
+  };
 }

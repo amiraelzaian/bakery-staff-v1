@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useOrder } from "../../hooks/useOrders";
 import OrderStatusBadge from "../../components/orders/OrderStatusBadge";
 import { ORDER_STATUS_LABELS } from "../../components/orders/OrderStatusConfig";
+import OrderActions from "../../components/orders/OrderActions";
 
 export default function OrderDetails() {
   const { orderId } = useParams();
@@ -39,6 +40,7 @@ export default function OrderDetails() {
         </h1>
         <OrderStatusBadge status={order.status} />
       </div>
+      <OrderActions order={order} />
 
       <section className="rounded-2xl border border-border bg-card p-5">
         <h2 className="mb-3 font-semibold text-card-foreground">Items</h2>

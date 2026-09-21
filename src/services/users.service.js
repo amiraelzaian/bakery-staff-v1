@@ -36,3 +36,9 @@ export async function getAllUsers({ page = 1, search = "", role = "" } = {}) {
   const data = await apiClient(`/users?${params.toString()}`);
   return data;
 }
+
+
+export async function getUsersByRole(role) {
+  const params = new URLSearchParams({ role, limit: 100 });
+  return apiClient(`/users?${params.toString()}`);
+}
