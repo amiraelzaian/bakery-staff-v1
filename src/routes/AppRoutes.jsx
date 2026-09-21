@@ -34,6 +34,7 @@ import UserDetails from "../pages/Admin/UserDetails";
 import FailedOrders from "../pages/Admin/FailedOrders";
 import RefundedOrders from "../pages/Admin/RefundedOrders";
 import OrdersLayout from "../pages/Admin/OrdersLayout";
+import OfferDetails from "../pages/Admin/OfferDetails";
 
 export default function AppRoutes() {
   return (
@@ -59,7 +60,8 @@ export default function AppRoutes() {
             <Route path="users" element={<Users />} />
             <Route path="users/:userId" element={<UserDetails />} />
             <Route path="coupons" element={<Coupons />} />
-            <Route path="seasonal-offers" element={<Offers />} /> {/* NEW */}
+            <Route path="seasonal-offers" element={<Offers />} /> 
+            <Route path="seasonal-offers/:offerId" element={<OfferDetails />} />
             <Route path="analytics" element={<Analytics />} />
             <Route path="audit-logs" element={<Logs />} />
           </Route>
