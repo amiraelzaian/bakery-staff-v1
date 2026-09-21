@@ -15,7 +15,7 @@ console.log(deliveries)
 
 console.log({ deliveries, isPending, error });
 
-    return <main className="">
+    return <main className="custom-scrollbar">
         <Header links={NAV_LINKS}/>
          <main className="mx-auto max-w-7xl p-4 pb-24 md:pb-6">
         <Outlet/>

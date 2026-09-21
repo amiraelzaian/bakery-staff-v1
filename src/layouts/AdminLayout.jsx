@@ -30,7 +30,7 @@ const ADMIN_NAV = [
 export default function AdminLayout() {
    const [expanded, setExpanded] = useState(false);
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background custom-scrollbar">
       {/* Admin only: owns its own open/closed state */}
       <SideBar links={ADMIN_NAV} expanded={expanded} setExpanded={setExpanded}/>
 

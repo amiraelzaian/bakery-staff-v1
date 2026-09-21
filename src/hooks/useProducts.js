@@ -8,6 +8,7 @@ import {
   getProductsForAdmin,
 } from "../services/products.service";
 
+
 export function useProducts({ page = 1, search = "", categoryId = "" } = {}) {
   const query = useQuery({
     queryKey: ["products", "admin", page, search, categoryId],

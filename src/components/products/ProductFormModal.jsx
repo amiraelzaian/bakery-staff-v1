@@ -106,8 +106,8 @@ export default function ProductFormModal({ open, onClose, product }) {
   };
 
   return (
-    <Modal open={open} onClose={onClose} title={isEdit ? "Edit Product" : "Add Product"} maxWidth="max-w-lg">
-      <form onSubmit={handleSubmit} className="max-h-[70vh] space-y-4 overflow-y-auto pr-1">
+    <Modal open={open} onClose={onClose} title={isEdit ? "Edit Product" : "Add Product"}  maxWidth="max-w-lg">
+      <form onSubmit={handleSubmit} className="custom-scrollbar max-h-[70vh] space-y-4 overflow-y-auto pr-1">
         <div className="flex items-center gap-3">
           <ProductImage src={preview} alt="Product preview" size={56} />
           <label className="cursor-pointer text-sm font-medium text-primary hover:underline">
