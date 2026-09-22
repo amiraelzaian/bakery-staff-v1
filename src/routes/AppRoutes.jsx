@@ -7,8 +7,8 @@ import BakerLayout from "../layouts/BakerLayout";
 import DeliveryLayout from "../layouts/DeliveryLayout";
 
 import AdminDashboard from "../pages/Admin/Dashboard";
-import BakerDashboard from "../pages/Baker/Dashboard";
-import DeliveryDashboard from "../pages/Delivery/Dashboard";
+import BakerProfile from "../pages/Baker/Profile";
+import DeliveryProfile from "../pages/Delivery/Profile";
 
 import Categories from "../pages/Admin/Categories";
 import Logs from "../pages/Admin/Logs";
@@ -70,8 +70,8 @@ export default function AppRoutes() {
         {/* Baker */}
         <Route element={<ProtectedRoute allowedRoles={["baker"]} />}>
           <Route path="/baker" element={<BakerLayout />}>
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<BakerDashboard />} />
+            <Route index element={<Navigate to="profile" replace />} />
+            <Route path="profile" element={<BakerProfile />} />
             <Route path="orders" element={<BakerOrders />} />
             <Route path="orders/:id" element={<OrderDetails />} />
           </Route>
@@ -80,8 +80,8 @@ export default function AppRoutes() {
         {/* Delivery */}
         <Route element={<ProtectedRoute allowedRoles={["delivery"]} />}>
           <Route path="/delivery" element={<DeliveryLayout />}>
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<DeliveryDashboard />} />
+            <Route index element={<Navigate to="profile" replace />} />
+            <Route path="profile" element={<DeliveryProfile />} />
             <Route path="deliveries" element={<Deliveries />} />
             <Route path="deliveries/:orderId" element={<DeliveryDetails/>} />
          </Route>
