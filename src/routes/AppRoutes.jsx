@@ -16,7 +16,7 @@ import AdminOrders from "../pages/Admin/Orders";
 import Products from "../pages/Admin/Products";
 import Coupons from "../pages/Admin/Coupons";
 import Analytics from "../pages/Admin/Analytics";
-import Offers from "../pages/Admin/Offers"; // 
+import Offers from "../pages/Admin/Offers"; 
 
 import BakerOrders from "../pages/Baker/Orders";
 
