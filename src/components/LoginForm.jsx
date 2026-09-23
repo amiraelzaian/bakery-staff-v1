@@ -1,7 +1,6 @@
-import { GoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
-import { useGoogle, useLogin } from "../hooks/useAuth";
-import { toast } from "sonner";
+import { useLogin } from "../hooks/useAuth";
+
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
 
@@ -9,7 +8,6 @@ export default function LoginForm() {
 
   const[open,setOpen]=useState(false)
 
-  const { loginWithGoogle,error:googleError } = useGoogle();
   const { login, isPending, error } = useLogin();
 
   const {
@@ -44,31 +42,9 @@ export default function LoginForm() {
         </p>
       </div>
 
-      {/* Google */}
-      <div className="overflow-hidden rounded-xl border border-border bg-card p-1.5 shadow-sm">
-        <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            loginWithGoogle(credentialResponse.credential);
-          }}
-          onError={() => toast.error("Google login failed")}
-        />
-      </div>
-       {googleError && (
-          <p className="text-center text-sm text-red-600">
-            {googleError.message}
-          </p>
-        )}
+      
 
-      {/* Divider */}
-      <div className="my-7 flex items-center gap-4">
-        <div className="h-px flex-1 bg-border" />
-
-        <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-          or continue with email
-        </span>
-
-        <div className="h-px flex-1 bg-border" />
-      </div>
+      
 
       <form
         onSubmit={handleSubmit(onSubmit)}
