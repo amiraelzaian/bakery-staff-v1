@@ -100,12 +100,7 @@ export default function LoginForm() {
       Password
     </label>
 
-    <button
-      type="button"
-      className="text-xs font-medium text-primary transition-colors hover:text-primary/70 disabled:opacity-50"
-    >
-      Forgot password
-    </button>
+   
   </div>
 
   <div className="relative">
