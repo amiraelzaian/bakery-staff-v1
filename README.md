@@ -121,3 +121,5 @@ VITE_PUBLIC_GOOGLE_CLIENT_ID=your-google-oauth-client-id
 
 Backend API: [BakeryApi](https://github.com/amiraelzaian/BakeryApi) — deployed on Railway.
 
+Frontend Demo: [BakeryApi](https://golden-crumbs-mangement-platform-theta.vercel.app/) — deployed on Railway.
+
